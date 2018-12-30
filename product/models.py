@@ -17,7 +17,7 @@ class product(models.Model):
         return self.title
 
 
-    def summary(Self):
+    def summary(self):
         return self.body[:200]
 
     def publiction_date(self):

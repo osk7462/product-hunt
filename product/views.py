@@ -4,10 +4,11 @@ from .models import product
 from django.utils import timezone
 
 def home(request):
-    return render(request, 'products/home.html')
+    prod = product.objects
+    return render(request, 'products/home.html', {'Product': prod})
 
 
-@login_required
+@login_required(login_url='/account/signup')
 def create(request):
     if request.method == 'POST':
         if request.POST['title'] and request.POST['body'] and request.POST['url'] and request.FILES['icon'] and request.FILES['image']:
@@ -37,7 +38,7 @@ def detail(request, product_id):
     return render(request, 'products/detail.html', {'product':prod})
 
 
-@login_required
+@login_required(login_url='/account/signup')
 def upvote(request, product_id):
     if request.method == 'POST':
         prod = get_object_or_404(product, pk=product_id)
